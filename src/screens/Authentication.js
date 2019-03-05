@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Modal } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, ButtonGroup } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
 export default class Authentication extends Component {
@@ -12,7 +12,16 @@ export default class Authentication extends Component {
             confirmPassword: '',
             confirmationCode: '',
             modalVisible: false,
+            selectedIndex: 0,
         };
+
+        this.buttons = ['Sign Up', 'Sign In']
+    }
+
+    updateIndex = () => {
+        // If selectedIndex was 0, make it 1.  If it was 1, make it 0
+        const newIndex = this.state.selectedIndex === 0 ? 1 : 0
+        this.setState({ selectedIndex: newIndex })
     }
 
     handleSignUp = () => {
@@ -42,24 +51,13 @@ export default class Authentication extends Component {
             .catch(err => console.log(err));
     }
 
-    render() {
+    signUpUI = () => {
         return (
-            <View style={styles.container}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>
-                        React Native
-                    </Text>
-                    <Text style={styles.text}>
-                        with AWS Amplify
-                    </Text>
-                    <Text style={styles.text}>
-                        Custom Authentication
-                    </Text>
-                </View>                
+            <View style={styles.form}>
                 <Input
-                    label="Email"
-                    placeholder="my@email.com"
-                    onChangeText={(value) => this.setState({ email: value})}
+                        label="Email"
+                        placeholder="my@email.com"
+                        onChangeText={(value) => this.setState({ email: value})}
                 />
                 <Input
                     label="Password"
@@ -86,7 +84,57 @@ export default class Authentication extends Component {
                         />
                         <Button title="Submit" onPress={ this.handleConfirmationCode }/>
                     </View>
-                </Modal>
+                </Modal>            
+            </View>
+        );
+    } 
+
+    signInUI = () => {
+        return (
+            <View style={styles.form}>
+                <Input
+                    label="Email"
+                    onChangeText={
+                        (value) => this.setState({ email: value })
+                    }
+                    placeholder="my@email.com"
+                />
+                <Input
+                    label="Password"
+                    onChangeText={
+                        (value) => this.setState({ password: value })
+                    }
+                    placeholder="p@ssw0rd123"
+                    secureTextEntry
+                />
+                <Button
+                    title='Submit'
+                    onPress={ this.handleSignIn }
+                />
+            </View>
+        );
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        React Native
+                    </Text>
+                    <Text style={styles.text}>
+                        with AWS Amplify
+                    </Text>
+                    <Text style={styles.text}>
+                        Custom Authentication
+                    </Text>
+                </View> 
+                <ButtonGroup
+                    onPress={this.updateIndex}
+                    selectedIndex={this.state.selectedIndex}
+                    buttons={ this.buttons }
+                /> 
+                { this.state.selectedIndex === 0 ? this.signUpUI() : this.signInUI()}      
             </View>
         )
     }
@@ -103,6 +151,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         top: 40,
+    },
+    form: {
+        width: '90%',
     },
     text: {
         fontSize: 20,
