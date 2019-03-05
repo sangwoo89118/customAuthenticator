@@ -51,6 +51,14 @@ export default class Authentication extends Component {
             .catch(err => console.log(err));
     }
 
+    handleSignIn = () => {
+        const { email, password } = this.state;
+        console.log('email: ', email, ' password: ', password);
+        Auth.signIn(email, password)
+            .then(email => this.props.navigation.navigate('Home'))
+            .catch(err => console.log(err));
+    }
+
     signUpUI = () => {
         return (
             <View style={styles.form}>
