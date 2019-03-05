@@ -7,8 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "aws-amplify": "^1.1.21",
+    "aws-amplify-react-native": "^2.1.8",
     "react": "16.6.3",
-    "react-native": "0.58.6"
+    "react-native": "0.58.6",
+    "react-navigation": "^3.3.2"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",

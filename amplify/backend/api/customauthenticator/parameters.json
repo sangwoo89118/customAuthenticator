@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "customauthenticator",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito5d7f1572",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

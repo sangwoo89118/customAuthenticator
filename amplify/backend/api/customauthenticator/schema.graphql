@@ -1,0 +1,6 @@
+type Todo @model {
+  id: ID!
+  name: String!
+  speakerName: String
+  spaekerBio: String
+}

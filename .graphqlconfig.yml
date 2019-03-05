@@ -1,0 +1,16 @@
+projects:
+  customauthenticator:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        graphQLApiId: jojxnwv2h5dlnfcsw4tmzxpcwa
+      endpoints:
+        prod: >-
+          https://k6yz4dk5gzdulnwwsbir7oe5iu.appsync-api.us-east-2.amazonaws.com/graphql
